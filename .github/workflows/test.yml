@@ -35,7 +35,7 @@ jobs:
       - name: Set Release Note
         id: set-releaseNote
         run: |
-          echo "::set-output name=releaseNote::$(node .github/deploy/change-log.js"
+          echo "::set-output name=releaseNote::$(node .github/deploy/change-log.js)"
   
   deploy:
     needs: beforeDeploy
