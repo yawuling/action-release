@@ -22,6 +22,12 @@ Github Action to create a release for repository
 
 ## Example usage
 
-uses: actions/hello-world-javascript-action@v1.1
+```yaml
+uses: actions/checkout@v2
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 with:
-  who-to-greet: 'Mona the Octocat'
+  name: v1.0.0
+  tag_name: v1.0.0
+  body: this is a release
+```
