@@ -5,8 +5,8 @@ async function run() {
   const name = core.getInput('name');
   const body = core.getInput('body');
   const tagName = core.getInput('tag_name');
-  const prerelease = core.getInput('prerelease') || false;
-  const draft = core.getInput('draft') || false;
+  const prerelease = core.getInput('prerelease');
+  const draft = core.getInput('draft');
 
   const githubToken = process.env['GITHUB_TOKEN'];
   const octokit = github.getOctokit(githubToken);
@@ -19,8 +19,8 @@ async function run() {
     name,
     body,
     tag_name: tagName,
-    prerelease,
-    draft,
+    prerelease: !(prerelease === 'false'),
+    draft: !(draft === 'false'),
   });;
 }
 
