@@ -1,0 +1,26 @@
+{
+  "name": "action-release",
+  "version": "1.0.0",
+  "description": "action for release",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yawuling/action-release.git"
+  },
+  "author": "yawuling<1297640072@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yawuling/action-release/issues"
+  },
+  "homepage": "https://github.com/yawuling/action-release#readme",
+  "dependencies": {
+    "@actions/core": "^1.5.0",
+    "@actions/github": "^5.0.0"
+  },
+  "devDependencies": {
+    "markdown-it": "^12.2.0"
+  }
+}

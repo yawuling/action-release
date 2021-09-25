@@ -1,0 +1,59 @@
+
+name: test
+
+on:
+  push:
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+
+
+jobs:
+  beforeDeploy:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    outputs:
+      version: ${{ steps.set-version.outputs.version }}
+      releaseNote: ${{ steps.set-releaseNote.outputs.releaseNote }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Node
+        uses: actions/setup-node@v2
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Set Version
+        id: set-version
+        run: |
+          echo "::set-output name=version::$(node .github/deploy/getVersion.js)"
+
+      - name: Set Release Note
+        id: set-releaseNote
+        run: |
+          echo "::set-output name=releaseNote::$(node .github/deploy/change-log.js"
+  
+  deploy:
+    needs: beforeDeploy
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Release
+        uses: ./
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          name: ${{ needs.beforeDeploy.outputs.version }}
+          tag_name: ${{ needs.beforeDeploy.outputs.version }}
+          body: ${{ needs.beforeDeploy.outputs.releaseNote }}
