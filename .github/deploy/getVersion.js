@@ -1,3 +1,3 @@
 const pkg = require('../../package.json')
 
-process.stdout.write((pkg.version || '') + '\n')
+process.stdout.write(`v${pkg.version}` + '\n')
