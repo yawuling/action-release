@@ -13,20 +13,20 @@ async function run() {
   const context = github.context;
   const { owner, repo } = context.repo;
 
-  await octokit.rest.repos.createRelease({
-    owner,
-    repo,
-    name,
-    body,
-    tag_name: tagName,
-    prerelease: !(prerelease === 'false'),
-    draft: !(draft === 'false'),
-  });;
+  try {
+    await octokit.rest.repos.createRelease({
+      owner,
+      repo,
+      name,
+      body,
+      tag_name: tagName,
+      prerelease: !(prerelease === 'false'),
+      draft: !(draft === 'false'),
+    });
+  } catch (e) {
+    console.error(e);
+    process.exit(1);
+  }
 }
 
-try {
-  run();
-} catch (e) {
-  console.error(e);
-  process.exit(1);
-}
+run();
